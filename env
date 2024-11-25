@@ -1,0 +1,3 @@
+DEVICE_NAME="PIXEL_7"
+APP_PACKAGE= "com.monefy.app.lite"
+APP_ACTIVITY="com.monefy.activities.main.MainActivity_"
