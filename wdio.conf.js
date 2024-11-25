@@ -23,7 +23,7 @@ exports.config = {
   // The path of the spec files will be resolved relative from the directory of
   // of the config file unless it's absolute.
   //
-  specs: ["./test/specs/**/*test.e2e.js"],
+  specs: ["./e2e/specs/*-test.e2e.js"],
   // Patterns to exclude.
   exclude: [
     // 'path/to/excluded/files'
@@ -143,7 +143,7 @@ exports.config = {
       "allure",
       {
         outputDir: "allure-results",
-        disableWebdriverStepsReporting: true,
+        disableWebdriverStepsReporting: false,
         disableWebdriverScreenshotsReporting: true,
       },
     ],
