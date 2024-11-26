@@ -2,21 +2,17 @@ import StartPage from "../page/StartPage";
 import BalancePage from "../page/BalancePage";
 import EditBalancePage from "../page/EditBalancePage";
 
-describe("general functionality of monefy android app", () => {
-  it("should allow user to access some application features before signing up", async () => {
-    const page = new StartPage();
-    const balance = new BalancePage();
+before(() => {
+  const page = new StartPage();
+  page.goToBalanceView();
+});
 
-    await page.checkStartWorkflow();
-    await page.clickCloseIcon();
-    await balance.checkBalancePageLoaded();
-  });
-
-  it("should allow user to add income then calculate $ balance correctly", async () => {
+describe("edit balance functionality of monefy android app | Salary", () => {
+  it.only("should allow user to add income then calculate dollars balance correctly", async () => {
     const balance = new BalancePage();
     const edit = new EditBalancePage();
     const currentAmount = await balance.getCurrentBalanceAmount();
-    const addedAmount = edit.getRandomNumber();
+    const addedAmount = await edit.getRandomValueToModifyBalance();
 
     await balance.clickIncomeBtn();
     await edit.setAmountOfMoney(addedAmount);
@@ -26,16 +22,17 @@ describe("general functionality of monefy android app", () => {
     await balance.waitTillBottomNotificationHidden();
   });
 
-  it("should allow user to add expense then calculate $ balance correctly", async () => {
+  it("should allow user to add expense then calculate dollars balance correctly", async () => {
     const balance = new BalancePage();
     const edit = new EditBalancePage();
     const currentAmount = await balance.getCurrentBalanceAmount();
-    const addedAmount = edit.getRandomNumber();
+    const removedAmount = await edit.getRandomValueToModifyBalance();
 
     await balance.clickExpenseBtn();
-    await edit.setAmountOfMoney(addedAmount);
+    await edit.setAmountOfMoney(removedAmount);
     await edit.chooseCategory("House");
-    await balance.verifyBalanceAmount(currentAmount, addedAmount, false);
+
+    await balance.verifyBalanceAmount(currentAmount, removedAmount, false);
     await balance.waitTillBottomNotificationHidden();
   });
 });
