@@ -1,8 +1,20 @@
 # Mobile E2E Test Framework
 
-This repository provides an End-to-End testing framework for Monefy mobile application, utilizing Appium and WebdriverIO on MacOS. The framework supports automating Android mobile application, enabling robust and scalable testing.
+This repository provides an End-to-End testing framework for Monefy mobile application, utilizing [Appium](http://appium.io/docs/en/latest/) and [WebdriverIO](https://webdriver.io) on MacOS. The framework supports automating Android and iOS mobile applications, enabling robust and scalable testing.
 
-# Folder Structure
+# Table of contents
+
+<!--ts-->
+
+- [Folder Structure](#folder-structure)
+- [Pre-conditions](#pre-condition)
+- [Local Execution](#local-execution)
+- [Run Your Tests](#run-your-tests)
+<!--te-->
+
+# Getting Started
+
+## Folder Structure
 
 ```
 mobile-e2e-test/
@@ -15,8 +27,6 @@ mobile-e2e-test/
 ├── wdio.conf.js       # WebdriverIO configuration
 └── package.json       # Node.js dependencies and scripts
 ```
-
-# Getting Started
 
 ## Pre-condition
 
@@ -73,13 +83,13 @@ Ensure these versions are up-to-date for compatibility with WebdriverIO and Appi
    - Click Create Virtual Device.
    - Select a device and system image (e.g., Pixel 7, API Level 34).
 
-5. Appium Doctor is a useful tool to verify that all the necessary dependencies for running Appium are installed and properly configured. It helps identify issues in your setup and ensures a smooth Appium experience.
+5. (optional) Appium Doctor is a useful tool to verify that all the necessary dependencies for running Appium are installed and properly configured. It helps identify issues in your setup and ensures a smooth Appium experience.
    ```
    npm install -g appium-doctor
    appium-doctor --android
    ```
 
-## Local Execution
+# Local Execution
 
 1. Install Dependencies
    Run the following command to install all required packages:
@@ -89,12 +99,14 @@ Ensure these versions are up-to-date for compatibility with WebdriverIO and Appi
    ```
 
 2. Configure Desired Capabilities
-   The framework uses an .env file to manage environment-specific configurations. Place the .env file at the root of the project directory. Then update the .env file with the name of the Android emulator you wish to use for your test execution.
+   The framework uses the `wdio.conf.js` configuration file. To simplify modifications, the device name and application package name are sourced from the `.env` file. This approach helps manage environment-specific configurations efficiently.
 
-   Example .env configuration:
+   You can refer to an example `.env` configuration in the `env` file.
 
    ```
    DEVICE_NAME="PIXEL_7"
+   APP_PACKAGE= "com.monefy.app.lite"
+   APP_ACTIVITY="com.monefy.activities.main.MainActivity_"
    ```
 
 3. Manage Emulators
@@ -124,7 +136,9 @@ Ensure these versions are up-to-date for compatibility with WebdriverIO and Appi
 
 4. Install Monefy app on your emulator.
 
-### Run Your Tests
+# Run Your Tests
+
+"!!! IMPORTANT: Make sure that the Monefy app is installed on your desired emulator before executing the tests."
 
 1. Once the emulator is running and the test application is installed, you can execute your test suite with the following commands:
 
@@ -134,6 +148,12 @@ Ensure these versions are up-to-date for compatibility with WebdriverIO and Appi
 
    This will trigger WebdriverIO to connect to the emulator, open the Monefy app, and execute the specified test scenarios.
 
+   You can use the following script to run the emulator (application needs to be installed), execute the tests, and close the emulator:
+
+   ```
+   npm run e2e-ci
+   ```
+
 2. Generate and View Test Reports
 
    After running your tests, test logs are generated and stored in the /allure-results folder. You can view a detailed test report by using the following command:
@@ -142,7 +162,7 @@ Ensure these versions are up-to-date for compatibility with WebdriverIO and Appi
    npm run open-reporter
    ```
 
-   This command will generate the Allure report and open it in your default browser, providing a comprehensive view of:
+   This command will generate the [Allure](https://allurereport.org) report and open it in your default browser, providing a comprehensive view of:
 
    - Passed, failed, and skipped tests.
    - Logs for debugging.
