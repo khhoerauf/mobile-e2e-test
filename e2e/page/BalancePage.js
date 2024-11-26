@@ -1,4 +1,7 @@
 import PageUtils from "../common/pageUtils";
+import Utils from "../support/utils";
+
+const utils = new Utils();
 
 export default class BalancePage extends PageUtils {
   elements = {
@@ -16,52 +19,53 @@ export default class BalancePage extends PageUtils {
   }
 
   async clickIncomeBtn() {
+    await this.checkBalancePageLoaded();
     await this.getElementByIdAndClick(this.elements.incomeBtn);
   }
 
   async clickExpenseBtn() {
+    await this.checkBalancePageLoaded();
     await this.getElementByIdAndClick(this.elements.expenseBtn);
   }
 
   async getCurrentBalanceAmount() {
-    return await this.getElementByIdAndGetText(this.elements.balanceLabel);
+    const balanceText = await this.getElementByIdAndGetText(
+      this.elements.balanceLabel
+    );
+    const balanceInt = Number(
+      balanceText.replace("Balance $", "").replace(/,/g, "")
+    );
+    return balanceInt;
   }
 
   async verifyBalanceAmount(currentAmount, modifiedAmount, isIncome = true) {
-    const balanceBefore = Number(
-      currentAmount.replace("Balance $", "").replace(/,/g, "")
-    );
     const intModifiedAmount = Number(modifiedAmount);
 
-    let expectedAmount;
+    let expectedBalanceInt;
+    let expectedBalanceText;
 
-    // Calculate expected amount based on balance before modification
+    // Calculate expected new balance based on balance before modification
     if (isIncome) {
-      expectedAmount = balanceBefore + intModifiedAmount;
+      expectedBalanceInt = currentAmount + intModifiedAmount;
     } else {
-      expectedAmount = balanceBefore - intModifiedAmount;
+      expectedBalanceInt = currentAmount - intModifiedAmount;
     }
 
-    const formatter = Intl.NumberFormat("en-US", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    });
+    expectedBalanceText = utils
+      .formatNumberToEnUsStandard(expectedBalanceInt)
+      .toString();
 
-    // Verify displayed text for negative and positive balance
-    if (expectedAmount < 0) {
-      await this.getElementByIdAndCheckText(
-        this.elements.balanceLabel,
-        `Balance -$${formatter
-          .format(expectedAmount)
-          .toString()
-          .replace("-", "")}`
-      );
+    // Verify displayed text for negative or positive balance
+    if (expectedBalanceInt < 0) {
+      expectedBalanceText = `Balance -$${expectedBalanceText.replace("-", "")}`;
     } else {
-      await this.getElementByIdAndCheckText(
-        this.elements.balanceLabel,
-        `Balance $${formatter.format(expectedAmount).toString()}`
-      );
+      expectedBalanceText = `Balance $${expectedBalanceText}`;
     }
+
+    await this.getElementByIdAndCheckText(
+      this.elements.balanceLabel,
+      expectedBalanceText
+    );
   }
 
   async waitTillBottomNotificationHidden() {
@@ -71,8 +75,8 @@ export default class BalancePage extends PageUtils {
         return (await elem.isDisplayed()) === false;
       },
       {
-        timeout: 30000,
-        timeoutMsg: "expected notification is hidden within 30s",
+        timeout: 30000, // to avoid flaky test set up 30s
+        timeoutMsg: "expected notification is hidden within 20s",
       }
     );
   }

@@ -13,4 +13,9 @@ export default class StartPage extends PageUtils {
   async clickCloseIcon() {
     await this.getElementByIdAndClick(this.closeIcon);
   }
+
+  async goToBalanceView() {
+    this.checkStartWorkflow();
+    await this.getElementByIdAndClick(this.closeIcon);
+  }
 }

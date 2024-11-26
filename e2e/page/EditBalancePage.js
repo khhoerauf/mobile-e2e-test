@@ -1,4 +1,7 @@
 import PageUtils from "../common/pageUtils";
+import Utils from "../support/utils";
+
+const utils = new Utils();
 
 export default class EditBalancePage extends PageUtils {
   elements = {
@@ -35,7 +38,7 @@ export default class EditBalancePage extends PageUtils {
     await $(this.elements.categoryElement(categoryName)).click();
   }
 
-  getRandomNumber() {
-    return (Math.random() * 10000).toFixed(2);
+  async getRandomValueToModifyBalance() {
+    return utils.getRandomNumber();
   }
 }
