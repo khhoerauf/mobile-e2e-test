@@ -169,3 +169,6 @@ Ensure these versions are up-to-date for compatibility with WebdriverIO and Appi
    - Logs for debugging.
 
 # Example of test execution
+
+![e2e-local](https://github.com/user-attachments/assets/d38bb6f4-0743-4a59-94a7-6a8d5ff9012a)
+
