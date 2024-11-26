@@ -23,7 +23,7 @@ exports.config = {
   // The path of the spec files will be resolved relative from the directory of
   // of the config file unless it's absolute.
   //
-  specs: ["./e2e/specs/*-test.js"],
+  specs: ["./e2e/specs/**-test.js"],
   // Patterns to exclude.
   exclude: [
     // 'path/to/excluded/files'
