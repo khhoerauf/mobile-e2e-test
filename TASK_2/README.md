@@ -1,6 +1,10 @@
 # Mobile E2E Test Framework
 
-This repository provides an End-to-End testing framework for Monefy mobile application, utilizing [Appium](http://appium.io/docs/en/latest/) and [WebdriverIO](https://webdriver.io) on MacOS. The framework supports automating Android and iOS mobile applications, enabling robust and scalable testing.
+This repository provides an End-to-End testing framework for the Monefy mobile application, utilizing [Appium](http://appium.io/docs/en/latest/) and [WebdriverIO](https://webdriver.io). I chose these frameworks because both tools have large, active communities and extensive documentation, ensuring continuous support and regular updates. Additionally, they are open-source, making them cost-effective and accessible.
+
+In the future, the framework can be integrated with GitHub Actions to enable continuous integration and automated testing workflows. Both frameworks support Android and iOS mobile applications, providing a robust and scalable solution for comprehensive testing.
+
+This project does not currently include integration with a Continuous Integration (CI) pipeline. For executing tests, the application is installed directly from the Google Play Store. I attempted to export the APK from the production version but have not yet managed to execute tests against it.
 
 # Table of contents
 
@@ -30,6 +34,8 @@ mobile-e2e-test/
 ```
 
 ## Pre-condition
+
+"!!! IMPORTANT: Instruction is done based on MAC OS"
 
 Before running the Mobile E2E Test Framework, ensure the following tools are installed and properly configured:
 
@@ -84,7 +90,21 @@ Ensure these versions are up-to-date for compatibility with WebdriverIO and Appi
    - Click Create Virtual Device.
    - Select a device and system image (e.g., Pixel 7, API Level 34).
 
-5. (optional) Appium Doctor is a useful tool to verify that all the necessary dependencies for running Appium are installed and properly configured. It helps identify issues in your setup and ensures a smooth Appium experience.
+5. (recommended) Install appium globally.
+
+   ```
+   npm i --location=global appium
+   ```
+
+   This command installs Appium globally on your system so that you can access it from the command line simply by running the appium command eg:
+
+   ```
+   appium driver list --installed
+   ```
+
+   Make sure that global version matches the minimum version specified by this project.
+
+6. (optional) Appium Doctor is a useful tool to verify that all the necessary dependencies for running Appium are installed and properly configured. It helps identify issues in your setup and ensures a smooth Appium experience.
    ```
    npm install -g appium-doctor
    appium-doctor --android
@@ -171,4 +191,3 @@ Ensure these versions are up-to-date for compatibility with WebdriverIO and Appi
 # Example of test execution
 
 ![e2e-local](https://github.com/user-attachments/assets/d38bb6f4-0743-4a59-94a7-6a8d5ff9012a)
-
