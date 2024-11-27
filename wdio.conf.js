@@ -1,4 +1,5 @@
 //const path = require("path");
+const os = require("os");
 
 exports.config = {
   //
@@ -139,12 +140,16 @@ exports.config = {
     timeout: 60000,
   },
   reporters: [
+    "spec",
     [
       "allure",
       {
-        outputDir: "allure-results",
-        disableWebdriverStepsReporting: false,
-        disableWebdriverScreenshotsReporting: true,
+        reportedEnvironmentVars: {
+          os_platform: os.platform(),
+          os_release: os.release(),
+          os_version: os.version(),
+          node_version: process.version,
+        },
       },
     ],
   ],
