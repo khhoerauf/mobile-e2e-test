@@ -15,6 +15,7 @@ This project does not currently include integration with a Continuous Integratio
 - [Local Execution](#local-execution)
 - [Run Your Tests](#run-your-tests)
 - [Example of test execution](#example-of-test-execution)
+- [Example of test report](#example-of-test-report)
 <!--te-->
 
 # Getting Started
@@ -191,3 +192,17 @@ Ensure these versions are up-to-date for compatibility with WebdriverIO and Appi
 # Example of test execution
 
 ![e2e-local](https://github.com/user-attachments/assets/d38bb6f4-0743-4a59-94a7-6a8d5ff9012a)
+
+# Example of test report
+
+1. After the test execution is finished, the `/allure-results` folder is created.
+2. When `npm run open-reporter` is run,the `/allure-report` folder is created, and an HTML page is opened with a visual representation of the results.
+
+Overview:
+<img width="600" alt="Screenshot 2024-11-27 at 10 04 02 AM" src="https://github.com/user-attachments/assets/6be04d4f-69fb-4423-baf9-f8869ffeec19">
+
+Test Cases: 
+<img width="600" alt="Screenshot 2024-11-27 at 10 11 47 AM" src="https://github.com/user-attachments/assets/f93a057a-9f58-492f-8775-7194578fc443">
+
+
+
