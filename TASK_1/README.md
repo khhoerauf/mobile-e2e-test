@@ -47,7 +47,7 @@ navigation menu.
 
    Priority: Medium
 
-   <img wwidth="250" alt="Screenshot 2024-11-26 at 11 12 05 AM" src="https://github.com/user-attachments/assets/68c77be9-e0f1-4339-9738-44dcdd91be42">
+   <img width="250" alt="Screenshot 2024-11-26 at 11 12 05 AM" src="https://github.com/user-attachments/assets/68c77be9-e0f1-4339-9738-44dcdd91be42">
 
 
 4. Scenario: should allow to open right side modal
