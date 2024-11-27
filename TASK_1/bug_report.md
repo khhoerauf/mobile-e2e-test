@@ -23,4 +23,4 @@ When an expense is calculated to be below 1% compared to other expense, the app 
 
 #### Expected :
 
-- Gift icon should be linked to piegraph icon. Potentially expenses less than 0% display as "< 0%".
+- Gift icon should be linked to piegraph icon. Potentially expenses less than 0% display as "< 1%".
