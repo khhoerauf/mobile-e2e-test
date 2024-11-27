@@ -18,6 +18,9 @@ When an expense is calculated to be below 1% compared to other expense, the app 
 
 - Gift icon has 0% and it is not linked to piegraph icon.
 
+<img width="250" alt="Screenshot 2024-11-27 at 9 12 23 AM" src="https://github.com/user-attachments/assets/ecef6b2a-83f5-40ea-8995-4d3c09fad4f6">
+
+
 #### Expected :
 
 - Gift icon should be linked to piegraph icon. Potentially expenses less than 0% display as "< 0%".
