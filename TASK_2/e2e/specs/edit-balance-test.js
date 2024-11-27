@@ -7,7 +7,7 @@ before(() => {
   page.goToBalanceView();
 });
 
-describe("edit balance functionality of monefy android app | Salary", () => {
+describe("edit balance functionality of monefy android app", () => {
   it("should allow user to add income then calculate dollars balance correctly", async () => {
     const balance = new BalancePage();
     const edit = new EditBalancePage();
