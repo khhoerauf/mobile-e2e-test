@@ -10,7 +10,6 @@ This repository provides an End-to-End testing framework for Monefy mobile appli
 - [Pre-conditions](#pre-condition)
 - [Local Execution](#local-execution)
 - [Run Your Tests](#run-your-tests)
-- [Example of test execution](#example-of-test-execution)
 <!--te-->
 
 # Getting Started
@@ -167,8 +166,3 @@ Ensure these versions are up-to-date for compatibility with WebdriverIO and Appi
 
    - Passed, failed, and skipped tests.
    - Logs for debugging.
-
-# Example of test execution
-
-![e2e-local](https://github.com/user-attachments/assets/d38bb6f4-0743-4a59-94a7-6a8d5ff9012a)
-
