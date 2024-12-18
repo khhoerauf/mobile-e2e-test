@@ -10,6 +10,7 @@
     "list-emulators": "node e2e/support/androidEmulator.js list",
     "start-emulator": "node e2e/support/androidEmulator.js start",
     "end-emulators": "node e2e/support/androidEmulator.js stop",
+    "list-simulators": "xcrun xctrace list devices",
     "open-reporter": "allure generate allure-results --clean && allure open"
   },
   "keywords": [],
@@ -24,6 +25,7 @@
     "@wdio/spec-reporter": "^9.2.14",
     "appium": "^2.12.1",
     "appium-uiautomator2-driver": "^3.9.0",
+    "appium-xcuitest-driver": "^7.34.1",
     "dotenv": "^16.4.5"
   }
 }

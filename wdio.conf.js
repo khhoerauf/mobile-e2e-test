@@ -45,21 +45,34 @@ exports.config = {
   // and 30 processes will get spawned. The property handles how many capabilities
   // from the same test should run tests.
   //
-  maxInstances: 1,
+  maxInstances: process.env.MAX_INSTANCES,
   //
   // If you have trouble getting all important capabilities together, check out the
   // Sauce Labs platform configurator - a great tool to configure your capabilities:
   // https://saucelabs.com/platform/platform-configurator
   //
   capabilities: [
+    /*
     {
       // capabilities for local Appium web tests on an Android Emulator
       platformName: "Android",
-      "appium:deviceName": process.env.DEVICE_NAME,
+      "appium:deviceName": process.env.ANDROID_DEVICE_NAME,
       "appium:automationName": "UiAutomator2",
       //"appium:app": path.join(process.cwd(), "app/Monefy.apk"),
       "appium:appPackage": process.env.APP_PACKAGE,
       "appium:appActivity": process.env.APP_ACTIVITY,
+    },
+    */
+    {
+      // capabilities for local Appium web tests on an IOS Simulator
+      platformName: "iOS",
+      "appium:udid": process.env.UUID,
+      "appium:automationName": "XCUITest",
+      //"appium:app": path.join(process.cwd(), "app/Monefy.apk"),
+      "appium:appPackage": process.env.APP_PACKAGE,
+      "appium:appActivity": process.env.APP_ACTIVITY,
+      "appium:includeSafariInWebviews": True,
+      "appium:showIOSLog": True
     },
   ],
 

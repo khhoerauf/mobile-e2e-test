@@ -1,3 +1,6 @@
-DEVICE_NAME="PIXEL_7"
+ANDROID_DEVICE_NAME="fake-name"
+IOS_DEVICE_NAME="fake-name"
+UUID="fake-uuid"
+MAX_INSTANCES=1
 APP_PACKAGE= "com.monefy.app.lite"
 APP_ACTIVITY="com.monefy.activities.main.MainActivity_"
