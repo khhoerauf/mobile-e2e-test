@@ -45,7 +45,7 @@ exports.config = {
   // and 30 processes will get spawned. The property handles how many capabilities
   // from the same test should run tests.
   //
-  maxInstances: process.env.MAX_INSTANCES,
+  maxInstances: parseInt(process.env.MAX_INSTANCES),
   //
   // If you have trouble getting all important capabilities together, check out the
   // Sauce Labs platform configurator - a great tool to configure your capabilities:
@@ -71,8 +71,8 @@ exports.config = {
       //"appium:app": path.join(process.cwd(), "app/Monefy.apk"),
       "appium:appPackage": process.env.APP_PACKAGE,
       "appium:appActivity": process.env.APP_ACTIVITY,
-      "appium:includeSafariInWebviews": True,
-      "appium:showIOSLog": True
+      "appium:includeSafariInWebviews": true,
+      "appium:showIOSLog": true
     },
   ],
 

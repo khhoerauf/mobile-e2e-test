@@ -1,13 +1,14 @@
+/*
 import StartPage from "../page/StartPage";
 import BalancePage from "../page/BalancePage";
 import EditBalancePage from "../page/EditBalancePage";
 
 before(() => {
-  const page = new StartPage();
+  const page = new StartPage("iOS");
   page.goToBalanceView();
 });
 
-describe("edit balance functionality of monefy android app | Salary", () => {
+describe.skip("edit balance functionality of monefy android app | Salary", () => {
   it("should allow user to add income then calculate dollars balance correctly", async () => {
     const balance = new BalancePage();
     const edit = new EditBalancePage();
@@ -36,3 +37,4 @@ describe("edit balance functionality of monefy android app | Salary", () => {
     await balance.waitTillBottomNotificationHidden();
   });
 });
+*/

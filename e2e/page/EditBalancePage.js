@@ -11,6 +11,8 @@ export default class EditBalancePage extends PageUtils {
     categoryView: "relativeLayoutChooseCategoryContainer",
     categoryElement: (categoryName) =>
       `//android.widget.TextView[@resource-id="com.monefy.app.lite:id/textCategoryName" and @text="${categoryName}"]`,
+    expenseBtn: ('~ExpenseButton'),
+    incomeBtn: ('~IncomeButton')
   };
 
   async clickOnKeyboardValue(keyboardValue) {
