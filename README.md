@@ -26,6 +26,32 @@ mobile-e2e-test/
 
 ## Pre-condition && Local Execution 
 
-For platform-specific documentation, refer to the following files:
+Before running the Mobile E2E Test Framework, ensure the following tools are installed and properly configured:
+
+1. Verify that Node.js and npm are installed and meet the required versions:
+
+   - Node.js: v20.10.0
+   - npm: 10.2.3
+
+   Check versions using:
+
+   ```
+   node -v | v20.10.0
+   npm -v | 10.2.3
+   ```
+
+Ensure these versions are up-to-date for compatibility with WebdriverIO and Appium.
+
+2. (recommended) Appium Doctor is a useful tool to verify that all the necessary dependencies for running Appium are installed and properly configured. It helps identify issues in your setup and ensures a smooth Appium experience.
+   ```
+   npm install -g appium-doctor
+   appium-doctor --android
+   appium-doctor --ios
+   ```
+
+3. For platform-specific documentation, refer to the following files:
 - readme_android.md — Instructions for Android
 - readme_ios.md — Instructions for iOS
+
+
+

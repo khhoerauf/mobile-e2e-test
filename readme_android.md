@@ -1,22 +1,6 @@
 ## Pre-condition
 
-Before running the Mobile E2E Test Framework, ensure the following tools are installed and properly configured:
-
-1. Verify that Node.js and npm are installed and meet the required versions:
-
-   - Node.js: v20.10.0
-   - npm: 10.2.3
-
-   Check versions using:
-
-   ```
-   node -v | v20.10.0
-   npm -v | 10.2.3
-   ```
-
-Ensure these versions are up-to-date for compatibility with WebdriverIO and Appium.
-
-2. Ensure Java JDK is installed and configured:
+1. Ensure Java JDK is installed and configured:
 
    - Java Version: java version "23.0.1" 2024-10-15
    - JAVA_HOME Path: /Library/Java/JavaVirtualMachines/jdk-23.jdk/Contents/Home
@@ -30,7 +14,7 @@ Ensure these versions are up-to-date for compatibility with WebdriverIO and Appi
 
    The $JAVA_HOME environment variable should point to the correct JDK directory.
 
-3. Android Studio and SDK
+2. Android Studio and SDK
    Use Android Studio to set up emulators and install the Android SDK:
 
    Ensure the $ANDROID_HOME environment variable is set to your Android SDK directory.
@@ -47,17 +31,12 @@ Ensure these versions are up-to-date for compatibility with WebdriverIO and Appi
 
    ```
 
-4. Set Up Android Emulator
+3. Set Up Android Emulator
 
    - Go to Tools > AVD Manager.
    - Click Create Virtual Device.
    - Select a device and system image (e.g., Pixel 7, API Level 34).
 
-5. (optional) Appium Doctor is a useful tool to verify that all the necessary dependencies for running Appium are installed and properly configured. It helps identify issues in your setup and ensures a smooth Appium experience.
-   ```
-   npm install -g appium-doctor
-   appium-doctor --android
-   ```
 
 # Local Execution
 
