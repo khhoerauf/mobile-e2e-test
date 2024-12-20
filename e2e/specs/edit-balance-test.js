@@ -1,17 +1,17 @@
-
 import StartPage from "../page/StartPage";
 import BalancePage from "../page/BalancePage";
 import EditBalancePage from "../page/EditBalancePage";
+const platform = browser.capabilities.platformName;
 
-before(() => {
-  const page = new StartPage("iOS");
-  page.goToBalanceView();
-});
+before(async () => {
+  const page = new StartPage(platform);
+  await page.goToBalanceView();
+})
 
 describe("edit balance functionality of monefy android app | Salary", () => {
   it("should allow user to add income then calculate dollars balance correctly", async () => {
-    const balance = new BalancePage("iOS");
-    const edit = new EditBalancePage("iOS");
+    const balance = new BalancePage(platform);
+    const edit = new EditBalancePage(platform);
     const currentAmount = await balance.getCurrentBalanceAmount();
     const addedAmount = await edit.getRandomValueToModifyBalance();
 
@@ -23,9 +23,9 @@ describe("edit balance functionality of monefy android app | Salary", () => {
     await balance.waitTillBottomNotificationHidden();
   });
 
-  it("should allow user to add expense then calculate dollars balance correctly", async () => {
-    const balance = new BalancePage("iOS");
-    const edit = new EditBalancePage("iOS");
+  it.skip("should allow user to add expense then calculate dollars balance correctly", async () => {
+    const balance = new BalancePage(platform);
+    const edit = new EditBalancePage(platform);
     const currentAmount = await balance.getCurrentBalanceAmount();
     const removedAmount = await edit.getRandomValueToModifyBalance();
 

@@ -5,7 +5,7 @@ const utils = new Utils();
 
 export default class EditBalancePage extends PageUtils {
   constructor(platformName) {
-    super();
+    super(platformName);
     this.platformName = platformName;
 
     const elements = {

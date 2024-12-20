@@ -5,7 +5,7 @@ const utils = new Utils();
 
 export default class BalancePage extends PageUtils {
   constructor(platformName) {
-    super();
+    super(platformName);
     this.platformName = platformName;
 
     const elements = {
@@ -14,7 +14,7 @@ export default class BalancePage extends PageUtils {
         incomeBtn: '~IncomeButton',
         piegraph: '~ChartSummaryLabel',
         balanceLabel: '~BalanceValue',
-        bottomMessage: ''
+        bottomMessage: 'snackbar_text'
       },
       Android: {
         expenseBtn: 'expense_button',
@@ -38,15 +38,11 @@ export default class BalancePage extends PageUtils {
   }
 
   async clickIncomeBtn() {
-    console.log("#Click on income button.");
-
     await this.checkBalancePageLoaded();
     await this.getElementByIdAndClick(this.incomeBtn);
   }
 
   async clickExpenseBtn() {
-    console.log("#Click on expense button.");
-
     await this.checkBalancePageLoaded();
     await this.getElementByIdAndClick(this.expenseBtn);
   }
@@ -104,7 +100,7 @@ export default class BalancePage extends PageUtils {
         return (await elem.isDisplayed()) === false;
       },
       {
-        timeout: 30000, // to avoid flaky test set up 30s
+        timeout: 20000,
         timeoutMsg: 'expected notification is hidden within 20s',
       }
     );

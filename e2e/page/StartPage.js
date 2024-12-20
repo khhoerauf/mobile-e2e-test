@@ -2,9 +2,8 @@ import PageUtils from "../common/pageUtils";
 
 export default class StartPage extends PageUtils {
   constructor(platformName) {
-    super();
+    super(platformName);
     this.platformName = platformName;
-
     const elements = {
       iOS: {
         continueBtn: '~CONTINUE',
@@ -27,21 +26,19 @@ export default class StartPage extends PageUtils {
       await this.checkBtnText(this.continueBtn, "AMAZING");
       await this.clickBtn(this.continueBtn);
       await this.checkBtnText(this.continueBtn, "I’M READY");
+      await this.clickBtn(this.continueBtn);
+      await this.checkBtnText(this.continueBtn, "RESTORE");
     } else {
-      await this.checkBtnText(this.continueBtn, "CONTINUE");
+      await this.checkBtnText(this.continueBtn, "CONTINUE")
     }
   }
 
   async clickCloseIcon() {
-    if(this.platformName === 'Android') {
-      await this.getElementByIdAndClick(this.closedBtn);
-    } else {
-      await this.clickBtn(this.closedBtn);
-    }
+    await this.getElementByIdAndClick(this.closedBtn);
   }
 
   async goToBalanceView() {
-    this.checkStartWorkflow();
+    await this.checkStartWorkflow();
     await this.getElementByIdAndClick(this.closedBtn);
   }
 }
