@@ -1,40 +1,67 @@
-import PageUtils from "../common/pageUtils";
-import Utils from "../support/utils";
+import PageUtils from '../common/pageUtils';
+import Utils from '../support/utils';
 
 const utils = new Utils();
 
 export default class BalancePage extends PageUtils {
-  elements = {
-    getNavigationBtn: (navigationType) => `~${navigationType} navigation`, // Open or Close
-    filterModal: "androidx.drawerlayout.widget.DrawerLayout",
-    piegraph: "piegraph",
-    balanceLabel: "balance_amount",
-    expenseBtn: "expense_button",
-    incomeBtn: "income_button_title",
-    bottomMessage: "snackbar_text",
-  };
+  constructor(platformName) {
+    super();
+    this.platformName = platformName;
+
+    const elements = {
+      iOS: {
+        expenseBtn: '~ExpenseButton',
+        incomeBtn: '~IncomeButton',
+        piegraph: '~ChartSummaryLabel',
+        balanceLabel: '~BalanceValue',
+        bottomMessage: ''
+      },
+      Android: {
+        expenseBtn: 'expense_button',
+        incomeBtn: 'income_button_title',
+        piegraph: 'piegraph',
+        balanceLabel: 'balance_amount',
+        bottomMessage: 'snackbar_text',
+      }
+    }
+
+    this.expenseBtn = elements[platformName]?.expenseBtn;
+    this.incomeBtn = elements[platformName]?.incomeBtn;
+    this.filterModal = elements[platformName]?.filterModal;
+    this.piegraph = elements[platformName]?.piegraph;
+    this.balanceLabel = elements[platformName]?.balanceLabel;
+    this.bottomMessage = elements[platformName]?.bottomMessage;
+  }
 
   async checkBalancePageLoaded() {
-    await this.getElementByIdWaitTillDisplayed(this.elements.piegraph);
+    await this.getElementByIdWaitTillDisplayed(this.piegraph);
   }
 
   async clickIncomeBtn() {
+    console.log("#Click on income button.");
+
     await this.checkBalancePageLoaded();
-    await this.getElementByIdAndClick(this.elements.incomeBtn);
+    await this.getElementByIdAndClick(this.incomeBtn);
   }
 
   async clickExpenseBtn() {
+    console.log("#Click on expense button.");
+
     await this.checkBalancePageLoaded();
-    await this.getElementByIdAndClick(this.elements.expenseBtn);
+    await this.getElementByIdAndClick(this.expenseBtn);
   }
 
   async getCurrentBalanceAmount() {
     const balanceText = await this.getElementByIdAndGetText(
-      this.elements.balanceLabel
+      this.balanceLabel
     );
-    const balanceInt = Number(
-      balanceText.replace("Balance $", "").replace(/,/g, "")
-    );
+    let balanceInt;
+
+    if (this.platformName === 'Android') {
+      balanceInt = Number(balanceText.replace('Balance $', '').replace(/,/g, ''));
+    } else {
+      balanceInt = Number(balanceText.replace('$', '').replace(/,/g, ''));
+    }
     return balanceInt;
   }
 
@@ -54,29 +81,31 @@ export default class BalancePage extends PageUtils {
     expectedBalanceText = utils
       .formatNumberToEnUsStandard(expectedBalanceInt)
       .toString();
+    
+    const balanceName = (this.platformName === 'Android' ? 'Balance ' : '');
 
     // Verify displayed text for negative or positive balance
     if (expectedBalanceInt < 0) {
-      expectedBalanceText = `Balance -$${expectedBalanceText.replace("-", "")}`;
+      expectedBalanceText = `${balanceName}-$${expectedBalanceText.replace('-', '')}`;
     } else {
-      expectedBalanceText = `Balance $${expectedBalanceText}`;
+      expectedBalanceText = `${balanceName}$${expectedBalanceText}`;
     }
 
     await this.getElementByIdAndCheckText(
-      this.elements.balanceLabel,
+      this.balanceLabel,
       expectedBalanceText
     );
   }
 
   async waitTillBottomNotificationHidden() {
-    const elem = await $(`${this.elementIdPath}${this.elements.bottomMessage}`);
+    const elem = await $(`${this.elementIdPath}${this.bottomMessage}`);
     await elem.waitUntil(
       async function () {
         return (await elem.isDisplayed()) === false;
       },
       {
         timeout: 30000, // to avoid flaky test set up 30s
-        timeoutMsg: "expected notification is hidden within 20s",
+        timeoutMsg: 'expected notification is hidden within 20s',
       }
     );
   }

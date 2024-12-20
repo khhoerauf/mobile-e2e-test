@@ -18,7 +18,6 @@ export default class StartPage extends PageUtils {
 
     this.continueBtn = elements[platformName]?.continueBtn;
     this.closedBtn = elements[platformName]?.closedBtn;
-  
   }
 
   async checkStartWorkflow() {
@@ -30,7 +29,6 @@ export default class StartPage extends PageUtils {
       await this.checkBtnText(this.continueBtn, "I’M READY");
     } else {
       await this.checkBtnText(this.continueBtn, "CONTINUE");
-      await this.clickBtn(this.continueBtn);
     }
   }
 

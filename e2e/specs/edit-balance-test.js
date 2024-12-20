@@ -1,4 +1,4 @@
-/*
+
 import StartPage from "../page/StartPage";
 import BalancePage from "../page/BalancePage";
 import EditBalancePage from "../page/EditBalancePage";
@@ -8,10 +8,10 @@ before(() => {
   page.goToBalanceView();
 });
 
-describe.skip("edit balance functionality of monefy android app | Salary", () => {
+describe("edit balance functionality of monefy android app | Salary", () => {
   it("should allow user to add income then calculate dollars balance correctly", async () => {
-    const balance = new BalancePage();
-    const edit = new EditBalancePage();
+    const balance = new BalancePage("iOS");
+    const edit = new EditBalancePage("iOS");
     const currentAmount = await balance.getCurrentBalanceAmount();
     const addedAmount = await edit.getRandomValueToModifyBalance();
 
@@ -24,8 +24,8 @@ describe.skip("edit balance functionality of monefy android app | Salary", () =>
   });
 
   it("should allow user to add expense then calculate dollars balance correctly", async () => {
-    const balance = new BalancePage();
-    const edit = new EditBalancePage();
+    const balance = new BalancePage("iOS");
+    const edit = new EditBalancePage("iOS");
     const currentAmount = await balance.getCurrentBalanceAmount();
     const removedAmount = await edit.getRandomValueToModifyBalance();
 
@@ -37,4 +37,3 @@ describe.skip("edit balance functionality of monefy android app | Salary", () =>
     await balance.waitTillBottomNotificationHidden();
   });
 });
-*/

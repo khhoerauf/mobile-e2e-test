@@ -4,20 +4,39 @@ import Utils from "../support/utils";
 const utils = new Utils();
 
 export default class EditBalancePage extends PageUtils {
-  elements = {
-    digitButtonKeyboard: "buttonKeyboard", // 0-9
-    dotButtonKeyboard: "buttonKeyboardDot",
-    categoryKeyboard: "keyboard_action_button",
-    categoryView: "relativeLayoutChooseCategoryContainer",
-    categoryElement: (categoryName) =>
-      `//android.widget.TextView[@resource-id="com.monefy.app.lite:id/textCategoryName" and @text="${categoryName}"]`,
-    expenseBtn: ('~ExpenseButton'),
-    incomeBtn: ('~IncomeButton')
-  };
+  constructor(platformName) {
+    super();
+    this.platformName = platformName;
+
+    const elements = {
+      iOS: {
+        digitButtonKeyboard: '~Digit', // 0-9
+        dotButtonKeyboard: '~Dot',
+        categoryKeyboard: '~ChooseCategory',
+        categoryView: 'XCUIElementTypeCollectionView',
+        categoryElement: (categoryName) => `~${categoryName}`
+
+      },
+      Android: {
+        digitButtonKeyboard: "buttonKeyboard", // 0-9
+        dotButtonKeyboard: "buttonKeyboardDot",
+        categoryKeyboard: "keyboard_action_button",
+        categoryView: "relativeLayoutChooseCategoryContainer",
+        categoryElement: (categoryName) =>
+          `//android.widget.TextView[@resource-id="com.monefy.app.lite:id/textCategoryName" and @text="${categoryName}"]`,
+      }
+    };
+  
+    this.digitButtonKeyboard = elements[platformName]?.digitButtonKeyboard;
+    this.dotButtonKeyboard = elements[platformName]?.dotButtonKeyboard;
+    this.categoryKeyboard = elements[platformName]?.categoryKeyboard;
+    this.categoryView = elements[platformName]?.categoryView;
+    this.categoryElement = elements[platformName]?.categoryElement;
+  }
 
   async clickOnKeyboardValue(keyboardValue) {
     await this.getElementByIdAndClick(
-      this.elements.digitButtonKeyboard + keyboardValue
+      this.digitButtonKeyboard + keyboardValue
     );
   }
 
@@ -26,7 +45,7 @@ export default class EditBalancePage extends PageUtils {
 
     for (let i = 0; i < array.length; i++) {
       if (array[i] === ".") {
-        await this.getElementByIdAndClick(this.elements.dotButtonKeyboard);
+        await this.getElementByIdAndClick(this.dotButtonKeyboard);
       } else {
         await this.clickOnKeyboardValue(array[i]);
       }
@@ -35,9 +54,11 @@ export default class EditBalancePage extends PageUtils {
   }
 
   async chooseCategory(categoryName) {
-    await this.getElementByIdAndClick(this.elements.categoryKeyboard);
-    await this.getElementByIdWaitTillDisplayed(this.elements.categoryView);
-    await $(this.elements.categoryElement(categoryName)).click();
+    console.log("Click on category: ", categoryName);
+
+    await this.getElementByIdAndClick(this.categoryKeyboard);
+    await this.getElementByIdWaitTillDisplayed(this.categoryView);
+    await $(this.categoryElement(categoryName)).click();
   }
 
   async getRandomValueToModifyBalance() {

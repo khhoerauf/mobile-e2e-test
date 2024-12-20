@@ -1,7 +1,20 @@
 import SharedElements from "./sharedElements";
 
 export default class PageUtils extends SharedElements {
-  elementIdPath = `id=${process.env.APP_PACKAGE}:id/`;
+  constructor(platformName) {
+    super();
+    this.platformName = platformName;
+    
+    let id;
+    if (platformName === 'iOS') {
+      id = `id=${process.env.APP_PACKAGE}:id/`;
+    } else {
+      id = ''
+    }
+    
+    this.elementIdPath = id;
+  }
+  
 
   async checkElementDisplayed(elementPath, timeout = 5000) {
     const elem = await $(elementPath);
@@ -42,6 +55,8 @@ export default class PageUtils extends SharedElements {
 
   async getElementByIdAndCheckText(elementId, expectedText) {
     const actualText = await $(`${this.elementIdPath}${elementId}`).getText();
+    console.log(`### Verify that actual text ${actualText} equals to ${expectedText}`);
+
     await expect(actualText).toBe(expectedText);
   }
 }
