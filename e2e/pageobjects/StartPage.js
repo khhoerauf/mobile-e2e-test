@@ -39,6 +39,8 @@ export default class StartPage extends PageUtils {
 
   async goToBalanceView() {
     await this.checkStartWorkflow();
-    await this.getElementByIdAndClick(this.closedBtn);
+    await this.clickCloseIcon(this.closedBtn);
   }
 }
+
+module.exports = new StartPage(browser.capabilities.platformName);

@@ -7,7 +7,6 @@ export default class EditBalancePage extends PageUtils {
   constructor(platformName) {
     super(platformName);
     this.platformName = platformName;
-
     const elements = {
       iOS: {
         digitButtonKeyboard: '~Digit', // 0-9
@@ -65,3 +64,5 @@ export default class EditBalancePage extends PageUtils {
     return utils.getRandomNumber();
   }
 }
+
+module.exports = new EditBalancePage(browser.capabilities.platformName);

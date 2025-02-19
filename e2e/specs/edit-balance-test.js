@@ -1,39 +1,34 @@
-import StartPage from "../page/StartPage";
-import BalancePage from "../page/BalancePage";
-import EditBalancePage from "../page/EditBalancePage";
-const platform = browser.capabilities.platformName;
+const startPage = require("../pageobjects/StartPage");
+const balancePage = require("../pageobjects/BalancePage");
+const editPage = require("../pageobjects/EditBalancePage");
 
 before(async () => {
-  const page = new StartPage(platform);
-  await page.goToBalanceView();
-})
+  await startPage.goToBalanceView();
+});
 
-describe("edit balance functionality of monefy android app | Salary", () => {
-  it("should allow user to add income then calculate dollars balance correctly", async () => {
-    const balance = new BalancePage(platform);
-    const edit = new EditBalancePage(platform);
-    const currentAmount = await balance.getCurrentBalanceAmount();
-    const addedAmount = await edit.getRandomValueToModifyBalance();
+describe("general edit balance functionality", () => {
+  it("should calculate balance after income was added", async () => {
+    const currentAmount = await balancePage.getCurrentBalanceAmount();
+    const addedAmount = await editPage.getRandomValueToModifyBalance();
 
-    await balance.clickIncomeBtn();
-    await edit.setAmountOfMoney(addedAmount);
-    await edit.chooseCategory("Salary");
+    await balancePage.clickIncomeBtn();
+    await editPage.setAmountOfMoney(addedAmount);
+    await editPage.chooseCategory("Salary");
 
-    await balance.verifyBalanceAmount(currentAmount, addedAmount);
-    await balance.waitTillBottomNotificationHidden();
+    await balancePage.verifyBalanceAmount(currentAmount, addedAmount);
+    await balancePage.waitTillBottomNotificationHidden();
   });
 
-  it.skip("should allow user to add expense then calculate dollars balance correctly", async () => {
-    const balance = new BalancePage(platform);
-    const edit = new EditBalancePage(platform);
-    const currentAmount = await balance.getCurrentBalanceAmount();
-    const removedAmount = await edit.getRandomValueToModifyBalance();
+  it("should calculate balance after expense was added", async () => {
+    const currentAmount = await balancePage.getCurrentBalanceAmount();
+    const removedAmount = await editPage.getRandomValueToModifyBalance();
 
-    await balance.clickExpenseBtn();
-    await edit.setAmountOfMoney(removedAmount);
-    await edit.chooseCategory("House");
+    await balancePage.clickExpenseBtn();
 
-    await balance.verifyBalanceAmount(currentAmount, removedAmount, false);
-    await balance.waitTillBottomNotificationHidden();
+    await editPage.setAmountOfMoney(removedAmount);
+    await editPage.chooseCategory("House");
+
+    await balancePage.verifyBalanceAmount(currentAmount, removedAmount, false);
+    await balancePage.waitTillBottomNotificationHidden();
   });
 });

@@ -1,20 +1,17 @@
-import SharedElements from "./sharedElements";
-
-export default class PageUtils extends SharedElements {
+export default class PageUtils {
   constructor(platformName) {
-    super();
     this.platformName = platformName;
-    
-    let id;
-    if (platformName === 'Android') {
-      id = `id=${process.env.APP_PACKAGE}:id/`;
+
+    let id = ""
+    if (this.platformName === "Android") {
+      id = `id=${process.env.ANDROID_APP_PACKAGE}:id/`;
     } else {
-      id = ''
+      id = "";
     }
-    
+
     this.elementIdPath = id;
   }
-  
+
   async checkElementDisplayed(elementPath, timeout = 5000) {
     const elem = await $(elementPath);
     await expect(elem).toBeDisplayed({ timeout });
