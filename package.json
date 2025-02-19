@@ -1,19 +1,17 @@
 {
   "name": "mobile-e2e-test",
-  "version": "1.0.0",
   "description": "WebdriverIO is JavaScript E2E automation framework, supports automating mobile applications in iOS & Android.",
-  "main": "index.js",
   "scripts": {
-    "e2e-local": "npx wdio",
+    "e2e-local": "wdio run ./wdio.conf.js",
     "e2e-ci": "npm run start-emulator && npm run e2e-local && npm run end-emulators",
     "e2e-report": "npm run start-emulator && npm run e2e-local && npm run end-emulators && npm run open-reporter",
-    "list-emulators": "node e2e/support/androidEmulator.js list",
-    "start-emulator": "node e2e/support/androidEmulator.js start",
-    "end-emulators": "node e2e/support/androidEmulator.js stop",
+    "list-emulators": "node support/androidEmulator.js list",
+    "start-emulator": "node support/androidEmulator.js start",
+    "end-emulators": "node support/androidEmulator.js stop",
+    "list-simulators": "xcrun xctrace list devices",
     "open-reporter": "allure generate allure-results --clean && allure open"
   },
-  "keywords": [],
-  "author": "",
+  "author": "@khhoerauf",
   "license": "ISC",
   "devDependencies": {
     "@wdio/allure-reporter": "^9.2.14",
@@ -22,8 +20,10 @@
     "@wdio/local-runner": "^9.3.0",
     "@wdio/mocha-framework": "^9.2.8",
     "@wdio/spec-reporter": "^9.2.14",
-    "appium": "^2.12.1",
-    "appium-uiautomator2-driver": "^3.9.0",
+    "allure-commandline": "^2.32.0",
+    "appium": "^1.22.3",
+    "appium-uiautomator2-driver": "^2.2.0",
+    "appium-xcuitest-driver": "^4.4.6",
     "dotenv": "^16.4.5"
   }
 }

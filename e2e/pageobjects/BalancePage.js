@@ -1,30 +1,27 @@
 import PageUtils from "../common/pageUtils";
-import Utils from "../support/utils";
+import Utils from "../common/utils";
+import BalanceElements from "./elements/BalanceElements";
 
 const utils = new Utils();
 
-export default class BalancePage extends PageUtils {
-  elements = {
-    getNavigationBtn: (navigationType) => `~${navigationType} navigation`, // Open or Close
-    filterModal: "androidx.drawerlayout.widget.DrawerLayout",
-    piegraph: "piegraph",
-    balanceLabel: "balance_amount",
-    expenseBtn: "expense_button",
-    incomeBtn: "income_button_title",
-    bottomMessage: "snackbar_text",
-  };
+class BalancePage extends PageUtils {
+  constructor(platformName) {
+    super(platformName);
+    this.platformName = platformName;
+    this.elements = new BalanceElements(this.platformName);
+  }
 
   async checkBalancePageLoaded() {
     await this.getElementByIdWaitTillDisplayed(this.elements.piegraph);
   }
 
   async clickIncomeBtn() {
+    console.log("TEST --- TEST");
     await this.checkBalancePageLoaded();
     await this.getElementByIdAndClick(this.elements.incomeBtn);
   }
 
   async clickExpenseBtn() {
-    await this.checkBalancePageLoaded();
     await this.getElementByIdAndClick(this.elements.expenseBtn);
   }
 
@@ -32,9 +29,15 @@ export default class BalancePage extends PageUtils {
     const balanceText = await this.getElementByIdAndGetText(
       this.elements.balanceLabel
     );
-    const balanceInt = Number(
-      balanceText.replace("Balance $", "").replace(/,/g, "")
-    );
+    let balanceInt;
+
+    if (this.platformName === "Android") {
+      balanceInt = Number(
+        balanceText.replace("Balance $", "").replace(/,/g, "")
+      );
+    } else {
+      balanceInt = Number(balanceText.replace("$", "").replace(/,/g, ""));
+    }
     return balanceInt;
   }
 
@@ -55,11 +58,13 @@ export default class BalancePage extends PageUtils {
       .formatNumberToEnUsStandard(expectedBalanceInt)
       .toString();
 
+    const balanceName = this.platformName === "Android" ? "Balance " : "";
+
     // Verify displayed text for negative or positive balance
     if (expectedBalanceInt < 0) {
-      expectedBalanceText = `Balance -$${expectedBalanceText.replace("-", "")}`;
+      expectedBalanceText = `${balanceName}-$${expectedBalanceText.replace("-", "")}`;
     } else {
-      expectedBalanceText = `Balance $${expectedBalanceText}`;
+      expectedBalanceText = `${balanceName}$${expectedBalanceText}`;
     }
 
     await this.getElementByIdAndCheckText(
@@ -75,9 +80,11 @@ export default class BalancePage extends PageUtils {
         return (await elem.isDisplayed()) === false;
       },
       {
-        timeout: 30000, // to avoid flaky test set up 30s
+        timeout: 20000,
         timeoutMsg: "expected notification is hidden within 20s",
       }
     );
   }
 }
+
+module.exports = new BalancePage(browser.capabilities.platformName);

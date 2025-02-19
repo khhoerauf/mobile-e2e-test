@@ -1,7 +1,16 @@
-import SharedElements from "./sharedElements";
+export default class PageUtils {
+  constructor(platformName) {
+    this.platformName = platformName;
 
-export default class PageUtils extends SharedElements {
-  elementIdPath = `id=${process.env.APP_PACKAGE}:id/`;
+    let id = ""
+    if (this.platformName === "Android") {
+      id = `id=${process.env.ANDROID_APP_PACKAGE}:id/`;
+    } else {
+      id = "";
+    }
+
+    this.elementIdPath = id;
+  }
 
   async checkElementDisplayed(elementPath, timeout = 5000) {
     const elem = await $(elementPath);
@@ -9,17 +18,11 @@ export default class PageUtils extends SharedElements {
   }
 
   async checkBtnText(elementPath, expectedText) {
-    const actualText = await $(elementPath).getText();
-    await expect(actualText).toBe(expectedText);
+    await expect($(elementPath)).toHaveText(expectedText);
   }
 
   async clickBtn(elementPath) {
     await $(elementPath).click();
-  }
-
-  async waitTillElementVisible(elementPath, timeout) {
-    const elem = await $(elementPath);
-    await elem.waitForDisplayed({ timeout });
   }
 
   async getElementById(elementId) {
@@ -30,10 +33,9 @@ export default class PageUtils extends SharedElements {
     await $(`${this.elementIdPath}${elementId}`).click();
   }
 
-  async getElementByIdWaitTillDisplayed(elementId, timeout = 5000) {
-    await $(`${this.elementIdPath}${elementId}`).waitForDisplayed({
-      timeout,
-    });
+  async getElementByIdWaitTillDisplayed(elementId, timeoutMsg, timeout = 5000) {
+    const elem = await $(`${this.elementIdPath}${elementId}`);
+    await elem.waitForDisplayed({ timeout, timeoutMsg });
   }
 
   async getElementByIdAndGetText(elementId) {
@@ -41,7 +43,7 @@ export default class PageUtils extends SharedElements {
   }
 
   async getElementByIdAndCheckText(elementId, expectedText) {
-    const actualText = await $(`${this.elementIdPath}${elementId}`).getText();
-    await expect(actualText).toBe(expectedText);
+    const elem = await $(`${this.elementIdPath}${elementId}`);
+    await expect(elem).toHaveText(expectedText);
   }
 }

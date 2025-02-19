@@ -1,9 +1,12 @@
 const { exec, spawn } = require("child_process");
+require("dotenv").config();
 const args = process.argv.slice(2);
 const command = args[0];
 
-require("dotenv").config();
-const DEVICE_NAME = args[1] || process.env.DEVICE_NAME;
+const DEVICE_NAMES = process.env.ANDROID_DEVICE_NAMES
+  ? process.env.ANDROID_DEVICE_NAMES.split(",").map(name => name.trim())
+  : [];
+  
 const emulatorPath = process.env.ANDROID_HOME
   ? `${process.env.ANDROID_HOME}/emulator/emulator`
   : "emulator";
@@ -18,21 +21,23 @@ const listEmulators = () => {
   });
 };
 
-const startEmulator = (DEVICE_NAME) => {
-  if (!DEVICE_NAME) {
-    console.error("Error: DEVICE_NAME is not provided.");
+const startEmulator = (deviceNames) => {
+  if (!Array.isArray(deviceNames) || deviceNames.length === 0) {
+    console.error("Error: DEVICE_NAMES must be a non-empty array.");
     process.exit(1);
   }
 
-  console.log(`Starting emulator: ${DEVICE_NAME}`);
+  deviceNames.forEach((deviceName) => {
+    console.log(`Starting emulator: ${deviceName}`);
 
-  const child = spawn(emulatorPath, ["-avd", DEVICE_NAME], {
-    detached: true,
-    stdio: "ignore",
+    const child = spawn(emulatorPath, ["-avd", deviceName], {
+      detached: true,
+      stdio: "ignore",
+    });
+
+    child.unref(); // Completely detach the child process
+    console.log(`Emulator ${deviceName} started in the background.`);
   });
-
-  child.unref(); // Completely detach the child process
-  console.log(`Emulator ${DEVICE_NAME} started in the background.`);
 };
 
 const stopAllEmulators = () => {
@@ -47,10 +52,10 @@ const stopAllEmulators = () => {
 
 if (command === "list") {
   listEmulators();
-} else if (command === "start" && DEVICE_NAME) {
-  startEmulator(DEVICE_NAME);
+} else if (command === "start" && DEVICE_NAMES) {
+  startEmulator(DEVICE_NAMES);
 } else if (command === "stop") {
   stopAllEmulators();
 } else {
-  console.log("Usage: node emulator.js <list|start|stop> [DEVICE_NAME]");
+  console.log("Usage: node emulator.js <list|start|stop> [DEVICE_NAMES]");
 }
