@@ -1,5 +1,5 @@
 import PageUtils from "../common/pageUtils";
-import Utils from "../support/utils";
+import Utils from "../common/utils";
 import BalanceElements from "./elements/BalanceElements";
 
 const utils = new Utils();
@@ -74,7 +74,6 @@ class BalancePage extends PageUtils {
   }
 
   async waitTillBottomNotificationHidden() {
-    console.log("#### TEST: this.elementIdPath", this.elementIdPath)
     const elem = await $(`${this.elementIdPath}${this.elements.bottomMessage}`);
     await elem.waitUntil(
       async function () {

@@ -1,5 +1,5 @@
 import PageUtils from "../common/pageUtils";
-import Utils from "../support/utils";
+import Utils from "../common/utils";
 
 const utils = new Utils();
 
