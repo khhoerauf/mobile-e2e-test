@@ -1,20 +1,17 @@
 {
   "name": "mobile-e2e-test",
-  "version": "1.0.0",
   "description": "WebdriverIO is JavaScript E2E automation framework, supports automating mobile applications in iOS & Android.",
-  "main": "index.js",
   "scripts": {
-    "e2e-local": "npx wdio",
+    "e2e-local": "wdio run ./wdio.conf.js",
     "e2e-ci": "npm run start-emulator && npm run e2e-local && npm run end-emulators",
     "e2e-report": "npm run start-emulator && npm run e2e-local && npm run end-emulators && npm run open-reporter",
-    "list-emulators": "node e2e/support/androidEmulator.js list",
-    "start-emulator": "node e2e/support/androidEmulator.js start",
-    "end-emulators": "node e2e/support/androidEmulator.js stop",
+    "list-emulators": "node support/androidEmulator.js list",
+    "start-emulator": "node support/androidEmulator.js start",
+    "end-emulators": "node support/androidEmulator.js stop",
     "list-simulators": "xcrun xctrace list devices",
     "open-reporter": "allure generate allure-results --clean && allure open"
   },
-  "keywords": [],
-  "author": "",
+  "author": "@khhoerauf",
   "license": "ISC",
   "devDependencies": {
     "@wdio/allure-reporter": "^9.2.14",

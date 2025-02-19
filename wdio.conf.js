@@ -3,7 +3,7 @@ const os = require("os");
 const {
   setUpIosDevices,
   setUpAndroidDevices,
-} = require("./e2e/support/config.js");
+} = require("./support/config.js");
 
 exports.config = {
   runner: "local",
@@ -19,11 +19,12 @@ exports.config = {
   connectionRetryCount: 3,
   services: ["appium"],
   appium: {
-    args: {
-      "--log": "./logs/",
-    },
+    args: [
+      "--log", "./logs/wdio-appium.log"
+    ],
   },
   framework: "mocha",
+  outputDir: "./logs",
   mochaOpts: {
     ui: "bdd",
     timeout: 60000,
