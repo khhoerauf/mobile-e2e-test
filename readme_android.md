@@ -61,6 +61,9 @@
    MAX_INSTANCES=2
    ANDROID_DEVICE_NAMES="Pixel7,Pixel9"
    ```
+   
+   https://github.com/user-attachments/assets/80ed057a-4a91-49ab-919c-5112ab45f3ae
+
 
    If you do not want to execute tests on multiple devices in parallel, simply set MAX_INSTANCES to 1.
    
