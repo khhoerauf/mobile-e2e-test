@@ -1,8 +1,9 @@
-DEVICE_NAME="fake-name"
-UUID="fake-uuid"
+ANDROID_DEVICE_NAMES="device-name, device-name2"
+ANDROID_DEVICE_FULL_RESET="false"
+UUID="fake"
 
 MAX_INSTANCES=1
  
 BUNDLE_ID="com.monefyapp.monefy"
-APP_PACKAGE="com.monefy.app.lite"
-APP_ACTIVITY="com.monefy.activities.main.MainActivity_"
+ANDROID_APP_PACKAGE="com.monefy.app.lite"
+ANDROID_APP_ACTIVITY="com.monefy.activities.main.MainActivity_"
