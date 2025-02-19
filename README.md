@@ -1,6 +1,6 @@
 # Mobile E2E Test Framework
 
-This repository provides an End-to-End testing framework for Monefy mobile application, utilizing [Appium](http://appium.io/docs/en/latest/) and [WebdriverIO](https://webdriver.io) on MacOS. The framework supports automating Android and iOS mobile applications, enabling robust and scalable testing.
+This repository provides an End-to-End testing framework for Monefy mobile application, utilizing [Appium](http://appium.io/docs/en/latest/) and [WebdriverIO](https://webdriver.io). The framework supports automating Android and iOS mobile applications, enabling robust and scalable testing.
 
 This project does not include integration with any CI pipeline. To execute tests, the application must be installed directly from the Google Play Store or Apple App Store. For iOS, test execution can only be performed on a real device, as simulators do not support app installations from the App Store.
 
@@ -14,12 +14,13 @@ You can download the apps here:
 
 ```
 mobile-e2e-test/
-├── app/               # Here should be placed working application apk
+├── app/               # The working application APK should be placed here
 ├── e2e/
 │   ├── common/        # WebdriverIO shared page actions and elements
 │   ├── page/          # Page Object Model (POM) files
-│   ├── specs/         # Test specifications
-│   └── support/       # Utilities and helpers
+│   └── specs/         # Test specifications
+├── logs/              # Appium session logs 
+├── support/           # Configuration and helpers for managing devices
 ├── wdio.conf.js       # WebdriverIO configuration
 └── package.json       # Node.js dependencies and scripts
 ```
