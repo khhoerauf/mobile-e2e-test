@@ -1,5 +1,4 @@
 ANDROID_DEVICE_NAMES="device-name, device-name2"
-ANDROID_DEVICE_FULL_RESET="false"
 UUID="fake"
 
 MAX_INSTANCES=1
