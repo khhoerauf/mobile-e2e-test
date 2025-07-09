@@ -6,30 +6,49 @@ export default class StartPage extends PageUtils {
     this.platformName = platformName;
     const elements = {
       iOS: {
-        continueBtn: '~CONTINUE',
-        closedBtn: '~closeButton',
+        continueBtn: "~CONTINUE",
+        closedBtn: "~closeButton",
+        systemAllowBtn: "~Allow",
       },
       Android: {
-        continueBtn: '.android.widget.Button',
-        closedBtn: 'buttonClose',
-      }
+        continueBtn: ".android.widget.Button",
+        closedBtn: "buttonClose",
+        systemAllowBtn:
+          '//android.widget.Button[@resource-id="com.android.permissioncontroller:id/permission_allow_button"]',
+      },
     };
 
     this.continueBtn = elements[platformName]?.continueBtn;
     this.closedBtn = elements[platformName]?.closedBtn;
+    this.systemAllowBtn = elements[platformName]?.systemAllowBtn;
   }
 
   async checkStartWorkflow() {
-    if(this.platformName === 'Android') {
-      await this.checkBtnText(this.continueBtn, "GET STARTED");
-      await this.clickBtn(this.continueBtn);
-      await this.checkBtnText(this.continueBtn, "AMAZING");
-      await this.clickBtn(this.continueBtn);
-      await this.checkBtnText(this.continueBtn, "I’M READY");
-      await this.clickBtn(this.continueBtn);
-      await this.checkBtnText(this.continueBtn, "RESTORE");
+    if (this.platformName === "Android") {
+      const steps = [
+        "GET STARTED",
+        "AMAZING",
+        "YES, PLEASE!", // Android specific step for notification permission
+        "I’M READY",
+        "RESTORE",
+      ];
+
+      for (const step of steps) {
+        if (step === "YES, PLEASE!") {
+          try {
+            await this.checkBtnText(this.continueBtn, "YES, PLEASE!");
+            await this.clickBtn(this.continueBtn);
+            await this.clickBtn(this.systemAllowBtn);
+          } catch {
+            console.log("Notification permission not requested, skipping...");
+          }
+        } else {
+          await this.checkBtnText(this.continueBtn, step);
+          await this.clickBtn(this.continueBtn);
+        }
+      }
     } else {
-      await this.checkBtnText(this.continueBtn, "CONTINUE")
+      await this.checkBtnText(this.continueBtn, "CONTINUE");
     }
   }
 

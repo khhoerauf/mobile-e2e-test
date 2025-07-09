@@ -16,7 +16,6 @@ class BalancePage extends PageUtils {
   }
 
   async clickIncomeBtn() {
-    console.log("TEST --- TEST");
     await this.checkBalancePageLoaded();
     await this.getElementByIdAndClick(this.elements.incomeBtn);
   }
