@@ -6,7 +6,7 @@ exports.config = {
     [
       "browserstack",
       {
-        app: "bs://989bf13fc5293be71d84e098971eb50f67f2ee59",
+        app: `bs://${process.env.BROWSERSTACK_APP_ID}`,
         buildIdentifier: "${BUILD_NUMBER}",
         browserstackLocal: true,
       },
