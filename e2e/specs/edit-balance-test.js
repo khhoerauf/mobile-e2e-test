@@ -1,13 +1,17 @@
-const startPage = require("../pageobjects/StartPage");
-const balancePage = require("../pageobjects/BalancePage");
-const editPage = require("../pageobjects/EditBalancePage");
-
-before(async () => {
-  await startPage.goToBalanceView();
-});
+import StartPage from "../pageobjects/StartPage";
+import BalancePage from "../pageobjects/BalancePage";
+import EditBalancePage from "../pageobjects/EditBalancePage";
 
 describe("general edit balance functionality", () => {
-  it("should calculate balance after income was added", async () => {
+  before(async () => {
+    const startPage = new StartPage();
+    await startPage.goToBalanceView();
+  });
+
+  it("should calculate balance after income was added", async () => {   
+    const balancePage = new BalancePage();
+    const editPage = new EditBalancePage();
+    
     const currentAmount = await balancePage.getCurrentBalanceAmount();
     const addedAmount = await editPage.getRandomValueToModifyBalance();
 
@@ -20,6 +24,9 @@ describe("general edit balance functionality", () => {
   });
 
   it("should calculate balance after expense was added", async () => {
+    const balancePage = new BalancePage();
+    const editPage = new EditBalancePage();
+
     const currentAmount = await balancePage.getCurrentBalanceAmount();
     const removedAmount = await editPage.getRandomValueToModifyBalance();
 

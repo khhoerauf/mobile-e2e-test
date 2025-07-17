@@ -20,9 +20,9 @@ async function setUpAndroidDevices() {
 async function setUpIosDevices() {
   let iosDevices = [];
 
-  envIosDevices.forEach((deviceUdid) => {
+  envIosDevices.forEach((udid) => {
     iosDevices.push({
-      udid: deviceUdid,
+      udid,
       fullReset: false,
     });
   });

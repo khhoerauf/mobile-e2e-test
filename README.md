@@ -2,7 +2,9 @@
 
 This repository provides an End-to-End testing framework for Monefy mobile application, utilizing [Appium](http://appium.io/docs/en/latest/) and [WebdriverIO](https://webdriver.io). The framework supports automating Android and iOS mobile applications, enabling robust and scalable testing.
 
-This project does not include integration with any CI pipeline. To execute tests, the application must be installed directly from the Google Play Store or Apple App Store. For iOS, test execution can only be performed on a real device, as simulators do not support app installations from the App Store.
+This project is not yet integrated with any CI pipeline.
+- To run tests on iOS, the application must be installed directly from the Apple App Store. This requires using a real device, as simulators do not support installations from the App Store.
+- The Android APK is located in the app folder.
 
 ## Application under test
 
@@ -51,8 +53,11 @@ Ensure these versions are up-to-date for compatibility with WebdriverIO and Appi
    ```
 
 3. For platform-specific documentation, refer to the following files:
-- readme_android.md — Instructions for Android
-- readme_ios.md — Instructions for iOS
+- [readme_android.md](./readme_android.md) — Instructions for Android
+
+https://github.com/user-attachments/assets/d17e4331-86eb-42cc-980a-c76f72a3e12e
+
+- [readme_ios.md](./readme_ios.md) — Instructions for iOS
 
 
 

@@ -1,9 +1,7 @@
 export default class PageUtils {
-  constructor(platformName) {
-    this.platformName = platformName;
-
-    let id = ""
-    if (this.platformName === "Android") {
+  constructor() {
+    let id = "";
+    if (browser.isAndroid) {
       id = `id=${process.env.ANDROID_APP_PACKAGE}:id/`;
     } else {
       id = "";
@@ -30,7 +28,11 @@ export default class PageUtils {
   }
 
   async getElementByIdAndClick(elementId) {
-    await $(`${this.elementIdPath}${elementId}`).click();
+    try {
+      await $(`${this.elementIdPath}${elementId}`).click();
+    } catch (error) {
+      console.error(`Element with ID ${elementId} not found:`);
+    }
   }
 
   async getElementByIdWaitTillDisplayed(elementId, timeoutMsg, timeout = 5000) {

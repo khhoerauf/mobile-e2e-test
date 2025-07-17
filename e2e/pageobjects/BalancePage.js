@@ -2,13 +2,11 @@ import PageUtils from "../common/pageUtils";
 import Utils from "../common/utils";
 import BalanceElements from "./elements/BalanceElements";
 
-const utils = new Utils();
-
 class BalancePage extends PageUtils {
-  constructor(platformName) {
-    super(platformName);
-    this.platformName = platformName;
-    this.elements = new BalanceElements(this.platformName);
+  constructor() {
+    super();
+    this.utils = new Utils();
+    this.elements = new BalanceElements();
   }
 
   async checkBalancePageLoaded() {
@@ -16,7 +14,6 @@ class BalancePage extends PageUtils {
   }
 
   async clickIncomeBtn() {
-    console.log("TEST --- TEST");
     await this.checkBalancePageLoaded();
     await this.getElementByIdAndClick(this.elements.incomeBtn);
   }
@@ -31,7 +28,7 @@ class BalancePage extends PageUtils {
     );
     let balanceInt;
 
-    if (this.platformName === "Android") {
+    if (browser.isAndroid) {
       balanceInt = Number(
         balanceText.replace("Balance $", "").replace(/,/g, "")
       );
@@ -54,11 +51,11 @@ class BalancePage extends PageUtils {
       expectedBalanceInt = currentAmount - intModifiedAmount;
     }
 
-    expectedBalanceText = utils
+    expectedBalanceText = this.utils
       .formatNumberToEnUsStandard(expectedBalanceInt)
       .toString();
 
-    const balanceName = this.platformName === "Android" ? "Balance " : "";
+    const balanceName = browser.isAndroid ? "Balance " : "";
 
     // Verify displayed text for negative or positive balance
     if (expectedBalanceInt < 0) {
@@ -87,4 +84,4 @@ class BalancePage extends PageUtils {
   }
 }
 
-module.exports = new BalancePage(browser.capabilities.platformName);
+export default BalancePage;

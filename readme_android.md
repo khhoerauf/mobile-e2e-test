@@ -94,7 +94,7 @@
 
 4. Install Monefy app on your emulator.
 
-# Run Your Tests
+# Run Your Tests Locally
 
 `IMPORTANT: Make sure that the Monefy app is installed on your desired emulator before executing the tests.`
 
@@ -124,3 +124,21 @@
 
    - Passed, failed, and skipped tests.
    - Logs for debugging.
+
+# Run Your Tests on Browserstack
+
+1. Set up environment variables: 
+To authenticate with BrowserStack, you’ll need two credentials:
+ - `BROWSERSTACK_USERNAME`
+ - `BROWSERSTACK_ACCESS_KEY`
+ - `BROWSERSTACK_APP_ID` 
+You can find these in your [BrowserStack account settings](https://www.browserstack.com/accounts/settings).
+
+2. Define devices in the config file
+Device capabilities are defined in a special WebdriverIO configuration file, typically named: `wdio.conf.browserstack.js`
+
+3. Once everything is set up, you can execute your tests on BrowserStack by running:
+
+   ```
+   npm run e2e-browserstack
+   ```
