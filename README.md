@@ -53,8 +53,8 @@ Ensure these versions are up-to-date for compatibility with WebdriverIO and Appi
    ```
 
 3. For platform-specific documentation, refer to the following files:
-- readme_android.md — Instructions for Android
-- readme_ios.md — Instructions for iOS
+- [readme_android.md](./readme_android.md) — Instructions for Android
+- [readme_ios.md](./readme_ios.md) — Instructions for iOS
 
 
 
