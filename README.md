@@ -54,6 +54,9 @@ Ensure these versions are up-to-date for compatibility with WebdriverIO and Appi
 
 3. For platform-specific documentation, refer to the following files:
 - [readme_android.md](./readme_android.md) — Instructions for Android
+
+https://github.com/user-attachments/assets/d17e4331-86eb-42cc-980a-c76f72a3e12e
+
 - [readme_ios.md](./readme_ios.md) — Instructions for iOS
 
 
