@@ -3,10 +3,12 @@ import BalancePage from "../pageobjects/BalancePage";
 import EditBalancePage from "../pageobjects/EditBalancePage";
 
 describe("general edit balance functionality", () => {
-  it("should calculate balance after income was added", async () => {
+  before(async () => {
     const startPage = new StartPage();
     await startPage.goToBalanceView();
-   
+  });
+
+  it("should calculate balance after income was added", async () => {   
     const balancePage = new BalancePage();
     const editPage = new EditBalancePage();
     
@@ -21,7 +23,7 @@ describe("general edit balance functionality", () => {
     await balancePage.waitTillBottomNotificationHidden();
   });
 
-  it.skip("should calculate balance after expense was added", async () => {
+  it("should calculate balance after expense was added", async () => {
     const balancePage = new BalancePage();
     const editPage = new EditBalancePage();
 
