@@ -20,7 +20,7 @@
     Then open project by clicking on `WebDriverAgent.xcodeproj`:
         - select WebDriverAgent in folder structure
         - select "Singing & Capabilities" in the tab
-        - in target section select WebDriverAgentRunner
+        - in TARGETS section select WebDriverAgentRunner
         - in "Signing" section, select Team in the dropdown (you should be able to select your presigned apple account, if it is not there you can add it in XCode Settings in Account tab)
         - in "Signing" section, define unique name for "Bundle Identifier"
 
