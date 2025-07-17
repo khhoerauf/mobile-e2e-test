@@ -1,8 +1,11 @@
 ANDROID_DEVICE_NAMES="device-name, device-name2"
-UUID="fake"
+UDID="device-udid, device-udid2"
 
 MAX_INSTANCES=1
  
 BUNDLE_ID="com.monefyapp.monefy"
 ANDROID_APP_PACKAGE="com.monefy.app.lite"
 ANDROID_APP_ACTIVITY="com.monefy.activities.main.MainActivity_"
+
+BROWSERSTACK_USERNAME="fake-username"
+BROWSERSTACK_ACCESS_KEY="fake-key"

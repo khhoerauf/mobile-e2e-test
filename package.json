@@ -2,7 +2,8 @@
   "name": "mobile-e2e-test",
   "description": "WebdriverIO is JavaScript E2E automation framework, supports automating mobile applications in iOS & Android.",
   "scripts": {
-    "e2e-local": "wdio run ./wdio.conf.js",
+    "e2e-browserstack": "npx wdio ./wdio.conf.browserstack.js",
+    "e2e-local": "wdio run ./wdio.conf.local.js",
     "e2e-ci": "npm run start-emulator && npm run e2e-local && npm run end-emulators",
     "e2e-report": "npm run start-emulator && npm run e2e-local && npm run end-emulators && npm run open-reporter",
     "list-emulators": "node support/androidEmulator.js list",
@@ -21,9 +22,12 @@
     "@wdio/mocha-framework": "^9.2.8",
     "@wdio/spec-reporter": "^9.2.14",
     "allure-commandline": "^2.32.0",
-    "appium": "^1.22.3",
+    "appium": "^2.19.0",
     "appium-uiautomator2-driver": "^2.2.0",
     "appium-xcuitest-driver": "^4.4.6",
     "dotenv": "^16.4.5"
+  },
+  "dependencies": {
+    "@wdio/browserstack-service": "^9.17.0"
   }
 }

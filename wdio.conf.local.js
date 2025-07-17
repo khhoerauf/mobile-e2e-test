@@ -1,9 +1,6 @@
-//const path = require("path");
+const path = require("path");
 const os = require("os");
-const {
-  setUpIosDevices,
-  setUpAndroidDevices,
-} = require("./support/config.js");
+const { setUpIosDevices, setUpAndroidDevices } = require("./support/config.js");
 
 exports.config = {
   runner: "local",
@@ -19,9 +16,7 @@ exports.config = {
   connectionRetryCount: 3,
   services: ["appium"],
   appium: {
-    args: [
-      "--log", "./logs/wdio-appium.log"
-    ],
+    args: ["--log", "./logs/wdio-appium.log"],
   },
   framework: "mocha",
   outputDir: "./logs",
@@ -58,7 +53,7 @@ exports.config = {
    */
   onPrepare: async function (config, capabilities, specs, cid) {
     androidDevices = await setUpAndroidDevices();
-    iosDevices = await setUpIosDevices();
+    //iosDevices = await setUpIosDevices();
 
     if (androidDevices) {
       androidDevices.forEach((device) => {
@@ -69,21 +64,23 @@ exports.config = {
           "appium:appPackage": process.env.ANDROID_APP_PACKAGE,
           "appium:appActivity": process.env.ANDROID_APP_ACTIVITY,
           "appium:noReset": false, //Appium driver to avoid its usual reset logic during session start and cleanup
-          //"appium:app": path.join(process.cwd(), "app/Monefy.apk"),
+          "appium:app": path.join(process.cwd(), "app/android-monefy.apk"),
         });
       });
     }
-
     if (iosDevices) {
       iosDevices.forEach((device) => {
         capabilities.push({
           "appium:automationName": "XCUITest",
-          "appium:platformName": "iOS",
+          "appium:platformName": "ios",
           "appium:udid": device.udid,
           "appium:bundleId": process.env.BUNDLE_ID,
+          "appium:wdaLaunchTimeout": 240000, // Increase WDA launch timeout
         });
       });
     }
+
+    console.log("Capabilities: ", androidDevices);
   },
   /**
    * Gets executed before a worker process is spawned and can be used to initialize specific service
@@ -122,8 +119,8 @@ exports.config = {
    * @param {Array.<String>} specs        List of spec file paths that are to be run
    * @param {object}         browser      instance of created browser/device session
    */
-  // before: function (capabilities, specs) {
-  // },
+  //before: function (capabilities, specs) {
+  //},
   /**
    * Runs before a WebdriverIO command gets executed.
    * @param {string} commandName hook command name
