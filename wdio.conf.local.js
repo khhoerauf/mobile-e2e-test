@@ -53,7 +53,7 @@ exports.config = {
    */
   onPrepare: async function (config, capabilities, specs, cid) {
     androidDevices = await setUpAndroidDevices();
-    //iosDevices = await setUpIosDevices();
+    iosDevices = await setUpIosDevices();
 
     if (androidDevices) {
       androidDevices.forEach((device) => {

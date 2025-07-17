@@ -1,65 +1,48 @@
 import PageUtils from "../common/pageUtils";
+import StartElements from "./elements/StartElements";
 
-export default class StartPage extends PageUtils {
-  constructor(platformName) {
-    super(platformName);
-    this.platformName = platformName;
-    const elements = {
-      iOS: {
-        continueBtn: "~CONTINUE",
-        closedBtn: "~closeButton",
-        systemAllowBtn: "~Allow",
-      },
-      Android: {
-        continueBtn: ".android.widget.Button",
-        closedBtn: "buttonClose",
-        systemAllowBtn:
-          '//android.widget.Button[@resource-id="com.android.permissioncontroller:id/permission_allow_button"]',
-      },
-    };
-
-    this.continueBtn = elements[platformName]?.continueBtn;
-    this.closedBtn = elements[platformName]?.closedBtn;
-    this.systemAllowBtn = elements[platformName]?.systemAllowBtn;
+class StartPage extends PageUtils {
+  constructor() {
+    super();
+    this.elements = new StartElements();
   }
 
   async checkStartWorkflow() {
-    if (this.platformName === "Android") {
+    if (browser.isAndroid) {
       const steps = [
         "GET STARTED",
         "AMAZING",
         "YES, PLEASE!", // Android specific step for notification permission
-        "I’M READY",
-        "RESTORE",
+        "I’M READY"
       ];
 
       for (const step of steps) {
         if (step === "YES, PLEASE!") {
           try {
-            await this.checkBtnText(this.continueBtn, "YES, PLEASE!");
-            await this.clickBtn(this.continueBtn);
-            await this.clickBtn(this.systemAllowBtn);
+            await this.checkBtnText(this.elements.continueBtn, "YES, PLEASE!");
+            await this.clickBtn(this.elements.continueBtn);
+            await this.clickBtn(this.elements.systemAllowBtn);
           } catch {
             console.log("Notification permission not requested, skipping...");
           }
         } else {
-          await this.checkBtnText(this.continueBtn, step);
-          await this.clickBtn(this.continueBtn);
+          await this.checkBtnText(this.elements.continueBtn, step);
+          await this.clickBtn(this.elements.continueBtn);
         }
       }
     } else {
-      await this.checkBtnText(this.continueBtn, "CONTINUE");
+      await this.checkBtnText(this.elements.continueBtn, "CONTINUE");
     }
   }
 
   async clickCloseIcon() {
-    await this.getElementByIdAndClick(this.closedBtn);
+    await this.getElementByIdAndClick(this.elements.closedBtn);
   }
 
   async goToBalanceView() {
     await this.checkStartWorkflow();
-    await this.clickCloseIcon(this.closedBtn);
+    await this.clickCloseIcon(this.elements.closedBtn);
   }
 }
 
-module.exports = new StartPage(browser.capabilities.platformName);
+export default StartPage;
