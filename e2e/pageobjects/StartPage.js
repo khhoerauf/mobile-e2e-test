@@ -20,14 +20,14 @@ class StartPage extends PageUtils {
         if (step === "YES, PLEASE!") {
           try {
             await this.checkBtnText(this.elements.continueBtn, "YES, PLEASE!");
-            await this.clickBtn(this.elements.continueBtn);
-            await this.clickBtn(this.elements.systemAllowBtn);
+            await this.tapBtn(this.elements.continueBtn);
+            await this.tapBtn(this.elements.systemAllowBtn);
           } catch {
             console.log("Notification permission not requested, skipping...");
           }
         } else {
           await this.checkBtnText(this.elements.continueBtn, step);
-          await this.clickBtn(this.elements.continueBtn);
+          await this.tapBtn(this.elements.continueBtn);
         }
       }
     } else {
@@ -36,7 +36,7 @@ class StartPage extends PageUtils {
   }
 
   async clickCloseIcon() {
-    await this.getElementByIdAndClick(this.elements.closedBtn);
+    await this.getElementByIdAndTap(this.elements.closedBtn);
   }
 
   async goToBalanceView() {

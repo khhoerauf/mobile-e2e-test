@@ -10,7 +10,7 @@ class EditBalancePage extends PageUtils {
     }
 
   async clickOnKeyboardValue(keyboardValue) {
-    await this.getElementByIdAndClick(this.elements.digitButtonKeyboard + keyboardValue);
+    await this.getElementByIdAndTap(this.elements.digitButtonKeyboard + keyboardValue);
   }
 
   async setAmountOfMoney(amount) {
@@ -18,7 +18,7 @@ class EditBalancePage extends PageUtils {
 
     for (let i = 0; i < array.length; i++) {
       if (array[i] === ".") {
-        await this.getElementByIdAndClick(this.elements.dotButtonKeyboard);
+        await this.getElementByIdAndTap(this.elements.dotButtonKeyboard);
       } else {
         await this.clickOnKeyboardValue(array[i]);
       }
@@ -26,7 +26,7 @@ class EditBalancePage extends PageUtils {
   }
 
   async chooseCategory(categoryName) {
-    await this.getElementByIdAndClick(this.elements.categoryKeyboard);
+    await this.getElementByIdAndTap(this.elements.categoryKeyboard);
     await this.getElementByIdWaitTillDisplayed(this.elements.categoryView);
     await $(this.elements.categoryElement(categoryName)).click();
   }
