@@ -15,15 +15,15 @@ class BalancePage extends PageUtils {
 
   async clickIncomeBtn() {
     await this.checkBalancePageLoaded();
-    await this.getElementByIdAndClick(this.elements.incomeBtn);
+    await this.getElementByIdAndTap(this.elements.incomeBtn);
   }
 
   async clickExpenseBtn() {
-    await this.getElementByIdAndClick(this.elements.expenseBtn);
+    await this.getElementByIdAndTap(this.elements.expenseBtn);
   }
 
   async getCurrentBalanceAmount() {
-    const balanceText = await this.getElementByIdAndGetText(
+    const balanceText = await this.getElementByIdAndTapGetText(
       this.elements.balanceLabel
     );
     let balanceInt;
@@ -64,7 +64,7 @@ class BalancePage extends PageUtils {
       expectedBalanceText = `${balanceName}$${expectedBalanceText}`;
     }
 
-    await this.getElementByIdAndCheckText(
+    await this.getElementByIdAndTapCheckText(
       this.elements.balanceLabel,
       expectedBalanceText
     );
